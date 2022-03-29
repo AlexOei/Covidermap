@@ -37,8 +37,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private ArrayList<Building> buildings;
-
-
+    FirebaseAuth fAuth;
+    FirebaseUser firebaseUser;
+    private String userID;
 
 
 
@@ -49,10 +50,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        
+        fAuth = FirebaseAuth.getInstance();
+        firebaseUser = fAuth.getCurrentUser();
+        userID = firebaseUser.getUid();
 
+        if(firebaseUser == null){
+            //closing this activity
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, Login.class));
+        }
+        
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(userID);;
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+                Toast.makeText(getApplicationContext(), "Welcome! " + user.getEmail(), Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        
+        
         Button locations, profile, healthCheck, checkIn, logOut;
         locations = findViewById(R.id.locations);
         profile = findViewById(R.id.profile);
@@ -66,6 +92,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent i = new Intent(view.getContext(), ListActivity.class);
                 startActivity(i);
             }
+        });
+        
+        logOut.setOnClickListener(view -> {
+            fAuth.signOut(); // logout
+            finish();
+            startActivity(new Intent(getApplicationContext(), Login.class));
         });
         /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
