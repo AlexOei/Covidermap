@@ -104,9 +104,9 @@ public class Register extends AppCompatActivity {
                 selectedRadioButton = findViewById(radioButtonID);
                 String selectedRbText = selectedRadioButton.getText().toString();
                 if (selectedRbText == "Instructor") {
-                    isInstructor = false;
-                } else {
                     isInstructor = true;
+                } else {
+                    isInstructor = false;
                 }
             }
 
