@@ -1,5 +1,6 @@
 package com.example.covider;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -18,8 +19,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.covider.databinding.ActivityMapsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,65 +38,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private ArrayList<Building> buildings;
 
-    InputStream input;
-    String file = "tes.json";
 
 
-    public ArrayList<Building> readJsonStream(InputStream in) throws IOException {
-        in = getAssets().open(file);
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            return readMessagesArray(reader);
-        } finally {
-            reader.close();
-        }
-    }
-
-    public ArrayList<Building> readMessagesArray(JsonReader reader) throws IOException {
-        ArrayList<Building> messages = new ArrayList<Building>();
-
-        reader.beginArray();
-        while (reader.hasNext()) {
-            messages.add(readMessage(reader));
-        }
-        reader.endArray();
-        return messages;
-    }
-
-    public Building readMessage(JsonReader reader) throws IOException {
-         String latitude = null;
-         String longitude = null;
-         String title = null;
-         String code = null;
-         String name = null;
 
 
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String building = reader.nextName();
-            if (building.equals("latitude")) {
-                latitude = reader.nextString();
-            } else if (building.equals("longitude")) {
-                longitude = reader.nextString();
-            } else if (building.equals("title")) {
-                title = reader.nextString();
-            } else if (building.equals("code")) {
-                code = reader.nextString();
-            } else if (building.equals("name")){
-                name = reader.nextString();
-            }  else {
-                reader.skipValue();
-            }
-        }
-        reader.endObject();
-        Building build = new Building();
-        build.setCode(code);
-        build.setLatitude(latitude);
-        build.setLongitude(longitude);
-        build.setTitle(title);
-        build.setName(name);
-        return build;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,15 +53,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        Button locations, profile, healthCheck, checkIn, logOut;
+        locations = findViewById(R.id.locations);
+        profile = findViewById(R.id.profile);
+        healthCheck = findViewById(R.id.healthCheck);
+        checkIn = findViewById(R.id.checkIn);
+        logOut = findViewById(R.id.logOut);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        locations.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(view.getContext(), ListActivity.class);
+                startActivity(i);
+            }
+        });
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ListActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -136,18 +99,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng tommy = new LatLng(34.0203590393, -118.2853240967);
         mMap.addMarker(new MarkerOptions().position(tommy).title("tommy trojan").snippet(lol).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));*/
 
-        try {
+        /*try {
             this.buildings = readJsonStream(input);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        for (int i = 0; i < this.buildings.size(); i++ ){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("Codes");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dSnap: snapshot.getChildren()){
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Buildings").child(dSnap.getValue().toString());
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Building build = snapshot.getValue(Building.class);
+                            LatLng ltln = new LatLng(Double.parseDouble(build.getLatitude()), Double.parseDouble(build.getLongitude()));
+                            mMap.addMarker(new MarkerOptions().position(ltln).title(build.getName()).snippet(build.getCode()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        /*DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Buildings").child("ABA");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    Building build = snapshot.getValue(Building.class);
+                    LatLng ltln = new LatLng(Double.parseDouble(build.getLatitude()), Double.parseDouble(build.getLongitude()));
+                    mMap.addMarker(new MarkerOptions().position(ltln).title(build.getName()).snippet(build.getCode()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+        /*for (int i = 0; i < 1/*this.buildings.size(); i++ ){
             Building test = this.buildings.get(i);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Buildings");
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        Building build = snapshot.getValue(Building.class);
+                        LatLng ltln = new LatLng(Double.parseDouble(build.getLatitude()), Double.parseDouble(build.getLongitude()));
+                        mMap.addMarker(new MarkerOptions().position(ltln).title(build.getName()).snippet(build.getCode()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
             LatLng ltlng = new LatLng(Double.parseDouble(test.getLatitude()), Double.parseDouble(test.getLongitude()));
             mMap.addMarker(new MarkerOptions().position(ltlng).title(test.getName()).snippet(test.getCode()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-        }
+        }*/
+
+
         LatLng start =new LatLng (34.0216751099, -118.2854461670);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 15));
 

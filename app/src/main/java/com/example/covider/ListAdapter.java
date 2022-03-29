@@ -34,21 +34,11 @@ public class ListAdapter extends ArrayAdapter<Building>{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_building,parent,false);
 
         }
-        FloatingActionButton fab = (FloatingActionButton) convertView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Context con = view.getContext();
-                Intent i = new Intent(con, MapsActivity.class);
-                con.startActivity(i);
-            }
-        });
-        TextView title = convertView.findViewById(R.id.title);
-        TextView code = convertView.findViewById(R.id.code);
+
+        TextView risk = convertView.findViewById(R.id.risk);
         TextView name = convertView.findViewById(R.id.name);
 
-        title.setText(building.getTitle());
-        code.setText(building.getCode());
+        risk.setText(building.getName());
         name.setText(building.getName());
 
 

@@ -3,10 +3,9 @@ package com.example.covider;
 public class Building {
 
 
-    public Building(String latitude, String longitude, String title, String code, String name){
+    public Building(String latitude, String longitude, String frequent, String code, String name){
         this.latitude = latitude;
         this.longitude = longitude;
-        this.title = title;
         this.code = code;
         this.name = name;
     }
@@ -16,9 +15,11 @@ public class Building {
     }
     private String latitude = null;
     private String longitude = null;
-    private String title = null;
     private String code = null;
     private String name = null;
+    private Integer risk = 0;
+
+
 
     public String getLatitude() {
         return latitude;
@@ -36,14 +37,6 @@ public class Building {
         longitude = Longitude;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getCode() {
         return code;
     }
@@ -58,5 +51,13 @@ public class Building {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getRisk() {
+        return risk;
+    }
+
+    public void setRisk(Integer risk) {
+        this.risk = risk;
     }
 }

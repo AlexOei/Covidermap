@@ -21,7 +21,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BuildingName"
@@ -30,34 +30,27 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/risk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Salvatori"/>
+                    android:text="Covid Risk"/>
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/code"
+        <Button
+            android:id="@+id/logOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_alignParentRight="true"
-            android:text="SAL"/>
+            android:text="Check In"/>
 
 
 
     </RelativeLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_baseline_list_24" />
+
 
 </LinearLayout>

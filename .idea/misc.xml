@@ -4,11 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_building.xml" value="0.18034447821681865" />
+        <entry key="app/src/main/res/layout/activity_class_section.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_list.xml" value="0.18034447821681865" />
-        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.18795289855072464" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.40443840579710144" />
+        <entry key="app/src/main/res/layout/activity_login_register.xml" value="0.37907608695652173" />
+        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.4359375" />
         <entry key="app/src/main/res/layout/activity_scrolling.xml" value="0.18795289855072464" />
         <entry key="app/src/main/res/layout/list_building.xml" value="0.33" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.18795289855072464" />
+        <entry key="app/src/main/res/layout/login_xiao.xml" value="0.40443840579710144" />
+        <entry key="app/src/main/res/layout/register_xiao.xml" value="0.33" />
       </map>
     </option>
   </component>
