@@ -22,13 +22,12 @@ public class BuildingActivity extends AppCompatActivity {
         if (intent != null){
 
             String name = intent.getStringExtra("name");
-            String title = intent.getStringExtra("building");
+            String risk = intent.getStringExtra("risk");
             String code = intent.getStringExtra("code");
 
             binding.nameProfile.setText(name);
-            binding.phoneProfile.setText(title);
+            binding.phoneProfile.setText(risk);
             binding.countryProfile.setText(code);
-
 
         }
 

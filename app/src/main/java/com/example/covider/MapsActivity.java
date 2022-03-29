@@ -39,10 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Building> buildings;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +49,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Button locations, profile, healthCheck, checkIn, logOut;
+        Button locations, profile, healthCheck, checkIn, logOut, sections;
         locations = findViewById(R.id.locations);
         profile = findViewById(R.id.profile);
         healthCheck = findViewById(R.id.healthCheck);
         checkIn = findViewById(R.id.checkIn);
         logOut = findViewById(R.id.logOut);
+        sections = findViewById(R.id.section);
 
         locations.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,6 +64,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(i);
             }
         });
+
+        profile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(view.getContext(), Profile.class);
+                startActivity(i);
+            }
+        });
+
+        sections.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                Intent i = new Intent(view.getContext(), ClassSectionActivity.class);
+                startActivity(i);
+            }
+
+        });
+
+        checkIn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                Intent i = new Intent(view.getContext(), SafetyMeasures.class);
+                startActivity(i);
+            }
+        });
+
+        healthCheck.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                Intent i = new Intent(view.getContext(), CovidSymptoms.class);
+                startActivity(i);
+            }
+        });
+
+
         /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Building build = snapshot.getValue(Building.class);
                             LatLng ltln = new LatLng(Double.parseDouble(build.getLatitude()), Double.parseDouble(build.getLongitude()));
-                            mMap.addMarker(new MarkerOptions().position(ltln).title(build.getName()).snippet(build.getCode()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            mMap.addMarker(new MarkerOptions().position(ltln).title(build.getName()).snippet("Covid Risk: " + build.getRisk().toString()+ " Entry Reqs: See List View").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                         }
 
                         @Override

@@ -29,7 +29,7 @@ public class ClassSectionActivity extends AppCompatActivity {
 
 
         submitClasses = findViewById(R.id.submitClasses);
-        firstCode = findViewById(R.id.firstCode);
+        firstCode = findViewById(R.id.code1);
         firstSection = findViewById(R.id.firstSection);
 
 
@@ -53,7 +53,7 @@ public class ClassSectionActivity extends AppCompatActivity {
 
             FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("Schedule").child("Codes").setValue(Codes)
+                    .child("Codes").setValue(Codes)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

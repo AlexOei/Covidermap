@@ -16,6 +16,10 @@ public class User {
     private boolean haveCovid;
     private boolean isInstructor;
 
+    public User(){
+
+    }
+
     public User(String firstName, String lastName, String email, String password, boolean isInstructor,
                 ArrayList<String> freq_visited, ArrayList<String> should_visit, ArrayList<String> health_history,
                 ArrayList<User> closeContacts, boolean haveCovid){

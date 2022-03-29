@@ -26,10 +26,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListActivity extends AppCompatActivity {
     ActivityListBinding binding;
-    ArrayList<Building> buildingArrayList = new ArrayList<Building>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ArrayList<Building> buildingArrayList = new ArrayList();
         super.onCreate(savedInstanceState);
         binding = ActivityListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -42,50 +42,63 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("Codes");
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dSnap: snapshot.getChildren()){
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Buildings").child(dSnap.getValue().toString());
-                    reference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Building build = snapshot.getValue(Building.class);
-                            buildingArrayList.add(build);
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                }
+            final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("Codes");
 
-                ListAdapter listAdapter = new ListAdapter(ListActivity.this,buildingArrayList);
-                binding.listview.setAdapter(listAdapter);
-                binding.listview.setClickable(true);
-                binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        Intent i = new Intent(ListActivity.this,BuildingActivity.class);
-                        i.putExtra("name", buildingArrayList.get(position).getName());
-                        i.putExtra("risk", buildingArrayList.get(position).getRisk());
-                        startActivity(i);
+                    for (DataSnapshot dSnap: snapshot.getChildren()){
+                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Buildings").child(dSnap.getValue().toString());
+
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Building build = snapshot.getValue(Building.class);
+                                buildingArrayList.add(build);
+                                ListAdapter listAdapter = new ListAdapter(ListActivity.this, buildingArrayList);
+                                binding.listview.setAdapter(listAdapter);
+                                binding.listview.setClickable(true);
+                                binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                        Intent i = new Intent(ListActivity.this,BuildingActivity.class);
+                                        i.putExtra("name", buildingArrayList.get(position).getName());
+                                        i.putExtra("risk", buildingArrayList.get(position).getRisk().toString());
+                                        i.putExtra("code", buildingArrayList.get(position).getCode());
+                                        startActivity(i);
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
                     }
-                });
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                }
 
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+        }
+
+
 
 
 
@@ -93,4 +106,3 @@ public class ListActivity extends AppCompatActivity {
 
 
     }
-}

@@ -2,6 +2,9 @@
     <string name="app_name">Covider</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title">Daily Health Form</string>
+    <string name="Yes">Tes</string>
+    <string name="No">No</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
