@@ -114,9 +114,12 @@ public class Register extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        ArrayList<String> freq_visited = new ArrayList<String>();
-                        ArrayList<String> should_visit = new ArrayList<String>();
+                        Map<String, String>  freq_visited = new HashMap<String, String>();
+                        freq_visited.put("", "");
+                        Map<String, String>  should_visit = new HashMap<String, String>();
+                        should_visit.put("", "");
                         ArrayList<String> health_history = new ArrayList<String>();
+                        health_history.add("");
                         ArrayList<User> closeContacts = new ArrayList<User>();
                         User user = new User(firstName, lastName, email, password, isInstructor, freq_visited, should_visit, health_history, closeContacts, false);
                         FirebaseDatabase.getInstance().getReference("Users")

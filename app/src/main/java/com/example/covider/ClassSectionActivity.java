@@ -11,16 +11,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassSectionActivity extends AppCompatActivity {
-    Button submitClasses;
-    EditText firstSection, firstCode;
+    Button submitClasses, switchViews;
+    EditText firstSection, firstCode, secondSection, secondCode;
+    EditText thirdCode, thirdSection, fourthCode, fourthSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +37,37 @@ public class ClassSectionActivity extends AppCompatActivity {
         submitClasses = findViewById(R.id.submitClasses);
         firstCode = findViewById(R.id.code1);
         firstSection = findViewById(R.id.firstSection);
+        secondCode = findViewById(R.id.code2);
+        secondSection = findViewById(R.id.section2);
+        thirdCode = findViewById(R.id.code3);
+        thirdSection = findViewById(R.id.section3);
+        fourthCode = findViewById(R.id.code4);
+        fourthSection = findViewById(R.id.section4);
+        switchViews = findViewById(R.id.frequently);
 
+        switchViews.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                Intent i = new Intent(view.getContext(), FrequentlyVisited.class);
+                startActivity(i);
+            }
+        });
 
 
         submitClasses.setOnClickListener(view -> {
             String sectionOne = firstSection.getText().toString().trim();
             String codeOne = firstCode.getText().toString().trim();
-            ArrayList<String> Sections = new ArrayList<String>();
-            ArrayList<String> Codes = new ArrayList<String>();
-            Sections.add(sectionOne);
-            Codes.add(codeOne);
+            String sectionTwo = secondSection.getText().toString().trim();
+            String codeTwo = secondCode.getText().toString().trim();
+            String sectionThree = thirdSection.getText().toString().trim();
+            String codeThree = thirdCode.getText().toString().trim();
+            String sectionFour = fourthSection.getText().toString().trim();
+            String codeFour = fourthCode.getText().toString().trim();
+
+
+
+            Map<String, String> Codes = new HashMap<>();
+            Codes.put(sectionOne, codeOne);
             if (sectionOne.isEmpty()) {
                 firstSection.setError("Please Enter at least one class");
                 return;
@@ -50,10 +77,21 @@ public class ClassSectionActivity extends AppCompatActivity {
                 firstCode.setError("Please Enter at least one class");
                 return;
             }
+            if (!codeTwo.isEmpty()){
+                Codes.put(sectionTwo, codeTwo);
+            }
+
+            if (!codeThree.isEmpty()){
+                Codes.put(sectionThree, codeThree);
+            }
+
+            if (!codeFour.isEmpty()){
+                Codes.put(sectionFour, codeFour);
+            }
 
             FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("Codes").setValue(Codes)
+                    .child("should_visit").setValue(Codes)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

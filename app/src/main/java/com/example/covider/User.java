@@ -9,8 +9,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private ArrayList<String> freq_visited ;
-    private ArrayList<String> should_visit ;
+    private Map<String, String> freq_visited ;
+    private Map<String, String> should_visit ;
     private ArrayList<String> health_history ;
     private ArrayList<User> closeContacts ;
     private boolean haveCovid;
@@ -21,7 +21,7 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String password, boolean isInstructor,
-                ArrayList<String> freq_visited, ArrayList<String> should_visit, ArrayList<String> health_history,
+                Map<String, String>  freq_visited, Map<String, String>  should_visit, ArrayList<String> health_history,
                 ArrayList<User> closeContacts, boolean haveCovid){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,19 +85,19 @@ public class User {
     }
 
 
-    public ArrayList<String> getFreq_visited() {
+    public Map<String, String>  getFreq_visited() {
         return freq_visited;
     }
 
-    public void setFreq_visited(ArrayList<String> freq_visited) {
+    public void setFreq_visited(Map<String, String> freq_visited) {
         this.freq_visited = freq_visited;
     }
 
-    public ArrayList<String> getShould_visit() {
+    public Map<String, String>  getShould_visit() {
         return should_visit;
     }
 
-    public void setShould_visit(ArrayList<String> should_visit) {
+    public void setShould_visit(Map<String, String>  should_visit) {
         this.should_visit = should_visit;
     }
 
