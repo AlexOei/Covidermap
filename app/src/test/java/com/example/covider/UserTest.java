@@ -42,6 +42,16 @@ public class UserTest {
        User u = new User("alex", "oei", "alexanxo@usc.edu", "111111",
                false, map2, map1, health, close, false );
        User use = new User();
+       use.setFirstName("alex");
+       use.setLastName("oei");
+       use.setEmail("alexanxo@usc.edu");
+       use.setPassword("111111");
+       use.setInstructor(false);
+       use.setFreq_visited(map2);
+       use.setShould_visit(map1);
+       use.setHealth_history(health);
+       use.setCloseContacts(close);
+       use.setHaveCovid(false);
 
 
        assertEquals(u.getFirstName(), "alex");
@@ -49,10 +59,21 @@ public class UserTest {
        assertEquals(u.getEmail(), "alexanxo@usc.edu");
        assertEquals(u.getPassword(), "111111");
        assertFalse(u.isInstructor());
+       assertEquals(u.getHealth_history(), health);
        assertEquals(u.getFreq_visited(), map2);
        assertEquals(u.getShould_visit(), map1);
        assertEquals(u.getCloseContacts(), close);
        assertFalse(u.isHaveCovid());
+
+       assertEquals(u.getFirstName(), use.getFirstName());
+       assertEquals(u.getLastName(), use.getLastName());
+       assertEquals(u.getEmail(), use.getEmail());
+       assertEquals(u.getPassword(), use.getPassword());
+       assertFalse(use.isInstructor());
+       assertEquals(u.getFreq_visited(), use.getFreq_visited());
+       assertEquals(u.getShould_visit(), use.getShould_visit());
+       assertEquals(u.getCloseContacts(), use.getCloseContacts());
+       assertFalse(use.isHaveCovid());
 
 
     }

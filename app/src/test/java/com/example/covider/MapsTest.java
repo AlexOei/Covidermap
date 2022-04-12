@@ -15,13 +15,7 @@ public class MapsTest {
 
     @Test
     public void testGetUserReference() {
-        MapsLogic maps = Mockito.mock(MapsLogic.class);
-        Button button = Mockito.mock(Button.class);
-        Class clas = Mockito.mock(Class.class);
-        Intent i = Mockito.mock(Intent.class);
-        View view = Mockito.mock(View.class);
-        Mockito.doNothing().when(view).getContext().startActivity(i);
-        Mockito.verify(maps, Mockito.times(1)).setButton(button, clas);
+
 
     }
 

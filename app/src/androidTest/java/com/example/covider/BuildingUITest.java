@@ -32,7 +32,10 @@ public class BuildingUITest {
         onView(withId(R.id.name_profile)).check(matches(withText("")));
         onView(withId(R.id.phone_profile)).check(matches(withText("")));
         onView(withId(R.id.country_profile)).check(matches(withText("")));
-        onView(withId(R.id.entryreq)).check(matches(withText("Students and Faculty Must be in compliance with USC's Trojan Check Policies, for more information, check https://coronavirus.usc.edu/trojan-check-wellness-assessment-and-campus-access/")));
+        onView(withId(R.id.entryreq)).check(matches(withText("Students and Faculty Must be in " +
+                "compliance with USC's Trojan Check Policies, for more information, " +
+                "check https://coronavirus.usc.edu/trojan-check-wellness-assessment-and-campus-access/")));
+
     }
 
 
