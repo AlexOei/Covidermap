@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MapsLogic maps = new MapsLogic();
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -57,7 +58,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         logOut = findViewById(R.id.logOut);
         sections = findViewById(R.id.section);
 
-        locations.setOnClickListener(new View.OnClickListener(){
+
+        maps.setButton(locations, ListActivity.class);
+        maps.setButton(profile, Profile.class);
+        maps.setButton(sections, ClassSectionActivity.class);
+        maps.setButton(checkIn, SafetyMeasures.class);
+        maps.setButton(healthCheck, CovidSymptoms.class);
+        maps.setButton(logOut, Login.class);
+
+        /*locations.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent i = new Intent(view.getContext(), ListActivity.class);

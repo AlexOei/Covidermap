@@ -23,16 +23,17 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class BuildingUITest {
     @Rule
-    public ActivityScenarioRule<Profile> activityScenarioRule = new ActivityScenarioRule<>(Profile.class);
+    public ActivityScenarioRule<BuildingActivity> activityScenarioRule = new ActivityScenarioRule<>(BuildingActivity.class);
 
     @Test
-    public void checkAlive(){
-        onView(withId(R.id.name_first)).check(matches(withText("alex")));
-        onView(withId(R.id.name_last)).check(matches(withText("oei")));
-        onView(withId(R.id.email_profile)).check(matches(withText("alexanxo@usc.edu")));
-        onView(withId(R.id.covid_profile)).check(matches(withText("False")));
-        onView(withId(R.id.isInstructor)).check(matches(withText("False")));
+    public void checkValues(){
+        onView(withId(R.id.name_profile)).check(matches(withText("")));
+        onView(withId(R.id.phone_profile)).check(matches(withText("")));
+        onView(withId(R.id.country_profile)).check(matches(withText("")));
+        onView(withId(R.id.entryreq)).check(matches(withText("Students and Faculty Must be in compliance with USC's Trojan Check Policies, for more information, check https://coronavirus.usc.edu/trojan-check-wellness-assessment-and-campus-access/")));
     }
+
+
 }

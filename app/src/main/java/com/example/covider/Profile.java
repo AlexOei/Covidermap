@@ -30,11 +30,13 @@ public class Profile extends AppCompatActivity {
         TextView email = findViewById(R.id.email_profile);
         TextView haveCovid = findViewById(R.id.covid_profile);
         TextView instructor = findViewById(R.id.isInstructor);
+        Firebase firebase = new Firebase();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //DatabaseReference ref = firebase.getUserReference();
 
-        ref.addValueEventListener(new ValueEventListener() {
+        firebase.getUser(first, last, email, haveCovid, instructor);
+
+        /*ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
@@ -54,7 +56,7 @@ public class Profile extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
 
 
 

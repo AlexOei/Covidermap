@@ -2,17 +2,21 @@ package com.example.covider;
 
 public class Building {
 
+    public Building (){
 
-    public Building(String latitude, String longitude, String frequent, String code, String name){
+    }
+
+    public Building(String latitude, String longitude, String code, String name, Integer risk){
         this.latitude = latitude;
         this.longitude = longitude;
         this.code = code;
         this.name = name;
+        this.risk = 0;
     }
 
-    public Building() {
 
-    }
+
+
     private String latitude = null;
     private String longitude = null;
     private String code = null;
