@@ -25,9 +25,22 @@ import java.util.ArrayList;
 
 public class Firebase {
 
+    FirebaseDatabase firebaseDatabase;
+
+    Firebase(FirebaseDatabase firebaseDatabase){
+        this.firebaseDatabase = firebaseDatabase;
+    }
+
+    public String getUserReferenceTest(){
+        return "databaseReference";
+    }
+
+    public String getLocationsTest(String locations){
+        return "location";
+    }
 
 
-    private DatabaseReference getUserReference(){
+    public DatabaseReference getUserReference(){
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -36,7 +49,7 @@ public class Firebase {
 
     };
 
-    private DatabaseReference getLocations(String location){
+    public DatabaseReference getLocations(String location){
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

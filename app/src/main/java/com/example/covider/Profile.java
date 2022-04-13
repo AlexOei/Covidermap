@@ -30,11 +30,11 @@ public class Profile extends AppCompatActivity {
         TextView email = findViewById(R.id.email_profile);
         TextView haveCovid = findViewById(R.id.covid_profile);
         TextView instructor = findViewById(R.id.isInstructor);
-        Firebase firebase = new Firebase();
+        /*Firebase firebase = new Firebase();
 
         //DatabaseReference ref = firebase.getUserReference();
 
-        firebase.getUser(first, last, email, haveCovid, instructor);
+        firebase.getUser(first, last, email, haveCovid, instructor);*/
 
         /*ref.addValueEventListener(new ValueEventListener() {
             @Override

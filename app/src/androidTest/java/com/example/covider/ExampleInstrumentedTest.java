@@ -29,6 +29,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void checkAlive(){
+
         onView(withId(R.id.name_first)).check(matches(withText("alex")));
         onView(withId(R.id.name_last)).check(matches(withText("oei")));
         onView(withId(R.id.email_profile)).check(matches(withText("alexanxo@usc.edu")));

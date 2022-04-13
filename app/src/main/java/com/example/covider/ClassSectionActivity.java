@@ -54,42 +54,50 @@ public class ClassSectionActivity extends AppCompatActivity {
         });
 
 
-        submitClasses.setOnClickListener(view -> {
-            String sectionOne = firstSection.getText().toString().trim();
-            String codeOne = firstCode.getText().toString().trim();
-            String sectionTwo = secondSection.getText().toString().trim();
-            String codeTwo = secondCode.getText().toString().trim();
-            String sectionThree = thirdSection.getText().toString().trim();
-            String codeThree = thirdCode.getText().toString().trim();
-            String sectionFour = fourthSection.getText().toString().trim();
-            String codeFour = fourthCode.getText().toString().trim();
+        submitClasses.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view){
+                String sectionOne = firstSection.getText().toString().trim();
+                String codeOne = firstCode.getText().toString().trim();
+                String sectionTwo = secondSection.getText().toString().trim();
+                String codeTwo = secondCode.getText().toString().trim();
+                String sectionThree = thirdSection.getText().toString().trim();
+                String codeThree = thirdCode.getText().toString().trim();
+                String sectionFour = fourthSection.getText().toString().trim();
+                String codeFour = fourthCode.getText().toString().trim();
 
 
 
-            Map<String, String> Codes = new HashMap<>();
-            Codes.put(sectionOne, codeOne);
-            if (sectionOne.isEmpty()) {
-                firstSection.setError("Please Enter at least one class");
-                return;
+                Map<String, String> Codes = new HashMap<>();
+                Codes.put(sectionOne, codeOne);
+                if (sectionOne.isEmpty()) {
+                    firstSection.setError("Please Enter at least one class");
+                    return;
+                }
+
+                if (codeOne.isEmpty()) {
+                    firstCode.setError("Please Enter at least one class");
+                    return;
+                }
+                if (!codeTwo.isEmpty()){
+                    Codes.put(sectionTwo, codeTwo);
+                }
+
+                if (!codeThree.isEmpty()){
+                    Codes.put(sectionThree, codeThree);
+                }
+
+                if (!codeFour.isEmpty()){
+                    Codes.put(sectionFour, codeFour);
+                }
+                Intent i = new Intent(view.getContext(), MapsActivity.class);
+                startActivity(i);
             }
 
-            if (codeOne.isEmpty()) {
-                firstCode.setError("Please Enter at least one class");
-                return;
-            }
-            if (!codeTwo.isEmpty()){
-                Codes.put(sectionTwo, codeTwo);
-            }
 
-            if (!codeThree.isEmpty()){
-                Codes.put(sectionThree, codeThree);
-            }
 
-            if (!codeFour.isEmpty()){
-                Codes.put(sectionFour, codeFour);
-            }
 
-            FirebaseDatabase.getInstance().getReference("Users")
+            /*FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("should_visit").setValue(Codes)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -101,7 +109,7 @@ public class ClassSectionActivity extends AppCompatActivity {
                                 Toast.makeText(ClassSectionActivity.this, "Failed to register!", Toast.LENGTH_LONG ).show();
                             }
                         }
-                    });
+                    });*/
 
         });
     }

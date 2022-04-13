@@ -29,8 +29,7 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Firebase firebase = new Firebase();
-        ArrayList<Building> buildingArrayList = new ArrayList();
+        //Firebase firebase = new Firebase(FirebaseDatabase.getInstance());
         super.onCreate(savedInstanceState);
         binding = ActivityListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,8 +42,8 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-            firebase.getList(binding, "freq_visited", buildingArrayList, ListActivity.this);
-            firebase.getList(binding, "should_visit", buildingArrayList, ListActivity.this);
+            /*firebase.getList(binding, "freq_visited", buildingArrayList, ListActivity.this);
+            firebase.getList(binding, "should_visit", buildingArrayList, ListActivity.this);*/
 
         }
 

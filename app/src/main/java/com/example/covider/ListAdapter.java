@@ -39,7 +39,8 @@ public class ListAdapter extends ArrayAdapter<Building>{
         TextView name = convertView.findViewById(R.id.name);
 
         name.setText(building.getName());
-        risk.setText("Covid Risk: " + building.getRisk()+"%");
+        risk.setText(0);
+        //risk.setText("Covid Risk: " + building.getRisk()+"%");
 
 
         return convertView;

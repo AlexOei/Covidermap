@@ -59,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         maps.setButton(sections, ClassSectionActivity.class);
         maps.setButton(checkIn, SafetyMeasures.class);
         maps.setButton(healthCheck, CovidSymptoms.class);
-        maps.setButton(logOut, Login.class);
+        maps.setLogout(logOut, Login.class);
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -71,10 +71,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Firebase firebase = new Firebase();
+        /*Firebase firebase = new Firebase(FirebaseDatabase.getInstance());
 
         firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_BLUE, "freq_visited");
-        firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_RED, "should_visit");
+        firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_RED, "should_visit");*/
 
 
         LatLng start =new LatLng (34.0216751099, -118.2854461670);
