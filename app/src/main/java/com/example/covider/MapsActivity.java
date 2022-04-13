@@ -71,11 +71,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        /*Firebase firebase = new Firebase(FirebaseDatabase.getInstance());
+        Firebase firebase = new Firebase();
 
-        firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_BLUE, "freq_visited");
-        firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_RED, "should_visit");*/
+        /*firebase.getMapLocations(mMap, BitmapDescriptorFactory.HUE_RED, "should_visit");*/
 
+        //firebase.getMapLocationsTest(mMap, BitmapDescriptorFactory.HUE_BLUE, "freq_visited");
 
         LatLng start =new LatLng (34.0216751099, -118.2854461670);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 15));

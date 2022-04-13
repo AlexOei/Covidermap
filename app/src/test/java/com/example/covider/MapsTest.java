@@ -12,14 +12,7 @@ import org.junit.Test;
 public class MapsTest {
 
 
-    @Test
-    public void testGetUserReference() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.useEmulator("localhost", 9000);
-        Firebase firebase = new Firebase(database);
-        assertEquals(firebase.getUserReference().getClass(), DatabaseReference.class);
 
-    }
 
 
 

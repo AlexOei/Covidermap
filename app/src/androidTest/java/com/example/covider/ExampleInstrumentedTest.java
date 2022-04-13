@@ -28,12 +28,12 @@ public class ExampleInstrumentedTest {
     public ActivityScenarioRule<Profile> activityScenarioRule = new ActivityScenarioRule<>(Profile.class);
 
     @Test
-    public void checkAlive(){
+    public void checkProfile(){
 
-        onView(withId(R.id.name_first)).check(matches(withText("alex")));
-        onView(withId(R.id.name_last)).check(matches(withText("oei")));
+        onView(withId(R.id.name_first)).check(matches(withText("test")));
+        onView(withId(R.id.name_last)).check(matches(withText("11")));
         onView(withId(R.id.email_profile)).check(matches(withText("alexanxo@usc.edu")));
-        onView(withId(R.id.covid_profile)).check(matches(withText("False")));
-        onView(withId(R.id.isInstructor)).check(matches(withText("False")));
+        onView(withId(R.id.covid_profile)).check(matches(withText("false")));
+        onView(withId(R.id.isInstructor)).check(matches(withText("false")));
     }
 }

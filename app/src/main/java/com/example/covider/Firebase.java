@@ -13,6 +13,7 @@ import com.example.covider.databinding.ActivityListBinding;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,22 +26,20 @@ import java.util.ArrayList;
 
 public class Firebase {
 
-    FirebaseDatabase firebaseDatabase;
 
-    Firebase(FirebaseDatabase firebaseDatabase){
-        this.firebaseDatabase = firebaseDatabase;
-    }
+
+
 
     public String getUserReferenceTest(){
         return "databaseReference";
     }
 
     public String getLocationsTest(String locations){
-        return "location";
+        return locations;
     }
 
 
-    public DatabaseReference getUserReference(){
+    /*public DatabaseReference getUserReference(){
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -57,9 +56,27 @@ public class Firebase {
 
         return ref;
 
-    };
+    };*/
 
-    public void getUser(TextView first, TextView last, TextView email, TextView haveCovid, TextView instructor){
+    public void getUserTest(TextView first, TextView last, TextView email, TextView haveCovid, TextView instructor){
+        User user = new User();
+        user.setFirstName("test");
+        user.setLastName("11");
+        user.setEmail("alexanxo@usc.edu");
+        user.setHaveCovid(false);
+        user.setInstructor(false);
+
+        first.setText(user.getFirstName());
+        last.setText(user.getLastName());
+        email.setText(user.getEmail());
+        String covid = new Boolean(user.isHaveCovid()).toString();
+        String instruct = new Boolean (user.isInstructor()).toString();
+        haveCovid.setText(covid);
+        instructor.setText(instruct);
+
+    }
+
+    /*public void getUser(TextView first, TextView last, TextView email, TextView haveCovid, TextView instructor){
 
         DatabaseReference ref = getUserReference();
 
@@ -83,9 +100,9 @@ public class Firebase {
         });
 
 
-    };
+    };*/
 
-    public void getList(ActivityListBinding binding, String string, ArrayList<Building> buildingArrayList, Context context){
+    /*public void getList(ActivityListBinding binding, String string, ArrayList<Building> buildingArrayList, Context context){
 
         DatabaseReference ref = getLocations(string);
 
@@ -133,9 +150,24 @@ public class Firebase {
 
             }
         });
+    }*/
+
+    public MarkerOptions getMapLocationsTest(float bitmapDescriptorFactory){
+        Building build = new Building();
+        build.setCode("ABA");
+        build.setLatitude("34.028");
+        build.setLongitude("-118.2806");
+        build.setName("Anna Bing Arnold Child Care Center");
+        build.setRisk(0);
+        LatLng ltln = new LatLng(Double.parseDouble(build.getLatitude()), Double.parseDouble(build.getLongitude()));
+        MarkerOptions marker = new MarkerOptions().position(ltln).title(build.getName()).snippet("Covid Risk: " + build.getRisk().toString()+ " Entry Reqs: See List View ");
+        return marker;
     }
 
-    public void getMapLocations(GoogleMap mMap, float bitmapDescriptorFactory, String string){
+    public void getMapUITest(GoogleMap mMap, float bitmapDescriptorFactory, String string){
+
+    }
+    /*public void getMapLocations(GoogleMap mMap, float bitmapDescriptorFactory, String string){
 
         DatabaseReference ref = getLocations(string);
 
@@ -165,7 +197,7 @@ public class Firebase {
 
             }
         });
-    }
+    }*/
 
 
 
